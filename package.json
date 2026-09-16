@@ -1,0 +1,29 @@
+{
+  "name": "av2-api-loja",
+  "version": "1.0.0",
+  "description": "API de loja com autenticação, upload de imagens e documentação Swagger",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node --watch app.js"
+  },
+  "keywords": [
+    "express",
+    "api",
+    "swagger",
+    "upload",
+    "jwt"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "swagger-jsdoc": "^6.3.0",
+    "swagger-ui-express": "^5.0.0"
+  },
+  "devDependencies": {}
+}
