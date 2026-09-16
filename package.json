@@ -2,10 +2,10 @@
   "name": "av2-api-loja",
   "version": "1.0.0",
   "description": "API de loja com autenticação, upload de imagens e documentação Swagger",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "node --watch app.js"
+    "start": "node server.js",
+    "dev": "node --watch server.js"
   },
   "keywords": [
     "express",
