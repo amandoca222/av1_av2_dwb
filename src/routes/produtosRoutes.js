@@ -50,7 +50,7 @@ const router = express.Router();
  *       201:
  *         description: Produto cadastrado com sucesso
  */
-router.get('/', authMiddleware, (req, res) => {
+router.get('/', (req, res) => {
   return res.status(200).json(produtos);
 });
 
@@ -126,7 +126,7 @@ router.post('/', authMiddleware, (req, res) => {
  *         schema:
  *           type: integer
  */
-router.get('/:id', authMiddleware, (req, res) => {
+router.get('/:id', (req, res) => {
   const { id } = req.params;
   const produto = produtos.find((item) => item.id === Number(id));
 
@@ -149,6 +149,20 @@ router.put('/:id', authMiddleware, (req, res) => {
   produtos[index] = produtoAtualizado;
 
   return res.status(200).json({ message: 'Produto atualizado com sucesso.', produto: produtoAtualizado });
+});
+
+router.patch('/:id', authMiddleware, (req, res) => {
+  const { id } = req.params;
+  const index = produtos.findIndex((item) => item.id === Number(id));
+
+  if (index === -1) {
+    return res.status(404).json({ message: 'Produto não encontrado.' });
+  }
+
+  const produtoAtualizado = { ...produtos[index], ...req.body };
+  produtos[index] = produtoAtualizado;
+
+  return res.status(200).json({ message: 'Produto atualizado parcialmente com sucesso.', produto: produtoAtualizado });
 });
 
 router.delete('/:id', authMiddleware, (req, res) => {

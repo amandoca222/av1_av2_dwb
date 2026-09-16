@@ -13,14 +13,15 @@ const { authMiddleware } = require('../middlewares/authMiddleware');
 
 const router = express.Router();
 
-const uploadDir = path.join(__dirname, '../../uploads');
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
+const uploadDir = process.env.UPLOAD_DIR || 'uploads';
+const resolvedUploadDir = path.join(__dirname, '../..', uploadDir);
+if (!fs.existsSync(resolvedUploadDir)) {
+  fs.mkdirSync(resolvedUploadDir, { recursive: true });
 }
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, uploadDir);
+    cb(null, resolvedUploadDir);
   },
   filename: (req, file, cb) => {
     const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
@@ -28,9 +29,11 @@ const storage = multer.diskStorage({
   }
 });
 
-const fileFilter = (req, file, cb) => {
-  const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
+const allowedTypes = (process.env.ALLOWED_IMAGE_TYPES || 'image/jpeg,image/png,image/jpg,image/webp')
+  .split(',')
+  .map((type) => type.trim());
 
+const fileFilter = (req, file, cb) => {
   if (allowedTypes.includes(file.mimetype)) {
     cb(null, true);
   } else {
@@ -40,7 +43,7 @@ const fileFilter = (req, file, cb) => {
 
 const upload = multer({
   storage,
-  limits: { fileSize: 2 * 1024 * 1024 },
+  limits: { fileSize: Number(process.env.UPLOAD_MAX_SIZE) || 2 * 1024 * 1024 },
   fileFilter
 });
 

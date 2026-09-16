@@ -1,0 +1,346 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2026-09-16T00:00:00.000Z",
+  "__export_source": "insomnia.desktop.app:v2024.2.0",
+  "resources": [
+    {
+      "_id": "wrk_av2_api",
+      "parentId": null,
+      "modified": 1758046000000,
+      "created": 1758046000000,
+      "name": "AV2 - Loja Digital",
+      "description": "Collection para testar a API da atividade AV2",
+      "scope": "collection",
+      "_type": "workspace"
+    },
+    {
+      "_id": "fld_av2_routes",
+      "parentId": "wrk_av2_api",
+      "modified": 1758046000000,
+      "created": 1758046000000,
+      "name": "Rotas da API",
+      "description": "Endpoints de autenticação, produtos, upload e documentação",
+      "environment": {},
+      "_type": "request_group"
+    },
+    {
+      "_id": "env_av2_base",
+      "parentId": "wrk_av2_api",
+      "modified": 1758046000000,
+      "created": 1758046000000,
+      "name": "Base Environment",
+      "data": {
+        "base_url": "http://localhost:3000",
+        "token": ""
+      },
+      "dataPropertyOrder": [
+        "base_url",
+        "token"
+      ],
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 0,
+      "_type": "environment"
+    },
+    {
+      "_id": "req_cadastro_usuario",
+      "parentId": "fld_av2_routes",
+      "modified": 1758046000000,
+      "created": 1758046000000,
+      "name": "POST /usuarios",
+      "description": "Cadastra um novo usuário",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"Maria Silva\",\n  \"email\": \"maria@example.com\",\n  \"senha\": \"123456\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request",
+      "url": "{{ _.base_url }}/usuarios"
+    },
+    {
+      "_id": "req_login",
+      "parentId": "fld_av2_routes",
+      "modified": 1758046000000,
+      "created": 1758046000000,
+      "name": "POST /login",
+      "description": "Faz login e retorna o token JWT",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"email\": \"maria@example.com\",\n  \"senha\": \"123456\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -900000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request",
+      "url": "{{ _.base_url }}/login"
+    },
+    {
+      "_id": "req_produtos_sem_token",
+      "parentId": "fld_av2_routes",
+      "modified": 1758046000000,
+      "created": 1758046000000,
+      "name": "GET /produtos sem token",
+      "description": "Exibe a resposta de bloqueio sem autorização",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -800000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request",
+      "url": "{{ _.base_url }}/produtos"
+    },
+    {
+      "_id": "req_produtos_com_token",
+      "parentId": "fld_av2_routes",
+      "modified": 1758046000000,
+      "created": 1758046000000,
+      "name": "GET /produtos com token",
+      "description": "Lista produtos com autenticação válida",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -700000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request",
+      "url": "{{ _.base_url }}/produtos"
+    },
+    {
+      "_id": "req_cadastrar_produto",
+      "parentId": "fld_av2_routes",
+      "modified": 1758046000000,
+      "created": 1758046000000,
+      "name": "POST /produtos",
+      "description": "Cadastra um novo produto",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"Notebook Gamer\",\n  \"descricao\": \"Notebook para jogos\",\n  \"preco\": 4999.99,\n  \"categoria\": \"Eletrônicos\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -600000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request",
+      "url": "{{ _.base_url }}/produtos"
+    },
+    {
+      "_id": "req_get_produto_por_id",
+      "parentId": "fld_av2_routes",
+      "modified": 1758046000000,
+      "created": 1758046000000,
+      "name": "GET /produtos/:id",
+      "description": "Consulta um produto por ID",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -500000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request",
+      "url": "{{ _.base_url }}/produtos/1"
+    },
+    {
+      "_id": "req_editar_produto",
+      "parentId": "fld_av2_routes",
+      "modified": 1758046000000,
+      "created": 1758046000000,
+      "name": "PUT /produtos/:id",
+      "description": "Atualiza um produto",
+      "method": "PUT",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"Notebook Gamer Atualizado\",\n  \"descricao\": \"Notebook para jogos com melhor desempenho\",\n  \"preco\": 5299.99,\n  \"categoria\": \"Eletrônicos\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -400000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request",
+      "url": "{{ _.base_url }}/produtos/1"
+    },
+    {
+      "_id": "req_excluir_produto",
+      "parentId": "fld_av2_routes",
+      "modified": 1758046000000,
+      "created": 1758046000000,
+      "name": "DELETE /produtos/:id",
+      "description": "Exclui um produto",
+      "method": "DELETE",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -300000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request",
+      "url": "{{ _.base_url }}/produtos/1"
+    },
+    {
+      "_id": "req_upload_imagem",
+      "parentId": "fld_av2_routes",
+      "modified": 1758046000000,
+      "created": 1758046000000,
+      "name": "POST /upload",
+      "description": "Faz upload de uma imagem JPG, PNG ou WEBP",
+      "method": "POST",
+      "body": {
+        "mimeType": "multipart/form-data",
+        "params": [
+          {
+            "name": "file",
+            "value": "",
+            "type": "file"
+          }
+        ]
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -200000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request",
+      "url": "{{ _.base_url }}/upload"
+    },
+    {
+      "_id": "req_swagger",
+      "parentId": "fld_av2_routes",
+      "modified": 1758046000000,
+      "created": 1758046000000,
+      "name": "GET /api-docs",
+      "description": "Acessa a documentação Swagger da API",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -100000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request",
+      "url": "{{ _.base_url }}/api-docs"
+    }
+  ]
+}

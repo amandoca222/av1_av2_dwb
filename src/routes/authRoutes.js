@@ -11,6 +11,7 @@ const jwt = require('jsonwebtoken');
 const { usuarios } = require('../data/usuarios');
 
 const jwtSecret = process.env.TOKENSECRETO || process.env.JWT_SECRET || 'av2_secret_key_2026';
+const tokenExpiresIn = process.env.TOKEN_EXPIRES_IN || '1h';
 
 const router = express.Router();
 
@@ -63,7 +64,7 @@ router.post('/', async (req, res) => {
   const token = jwt.sign(
     { id: usuario.id, email: usuario.email, nome: usuario.nome },
     jwtSecret,
-    { expiresIn: '1h' }
+    { expiresIn: tokenExpiresIn }
   );
 
   return res.status(200).json({
